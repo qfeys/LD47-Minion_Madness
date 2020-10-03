@@ -25,7 +25,10 @@ public class MouseManager : MonoBehaviour
                 GameObject go = hit.collider.gameObject;
                 Minion minion = go.GetComponent<Minion>();
                 if (minion != null)
+                {
                     selection = minion;
+                    Debug.Log("minion is selected.");
+                }
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -35,6 +38,7 @@ public class MouseManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject go = hit.collider.gameObject;
+                Debug.Log("setting target as " + go);
                 selection.SetTarget(go);
             }
         }
