@@ -187,9 +187,9 @@ public class Minion : MonoBehaviour
 
     private bool FindNearestToolshop(out GameObject toolshop)
     {
-        toolshop = null;
-        return false;
-        throw new NotImplementedException();
+        toolshop = BuildingTracker.instance.FindClosestToolshop(transform.position);
+        if (toolshop == null) return false;
+        return true;
     }
 
     Vector2 ToFlat(Vector3 vector3) => new Vector2(vector3.x, vector3.z);

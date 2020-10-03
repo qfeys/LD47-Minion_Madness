@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class BuildingTracker : MonoBehaviour
 {
+    public static BuildingTracker instance;
 
     List<ToolShop> toolshops = new List<ToolShop>();
     List<Farm> farms = new List<Farm>();
+
+    private void Awake()
+    {
+        if (instance != null) throw new System.Exception("multiple instances");
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
