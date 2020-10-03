@@ -69,7 +69,7 @@ public class Minion : MonoBehaviour
 
         // Set height
         var pos = transform.position;
-        pos.y = terrain.SampleHeight(pos) + 1;
+        pos.y = terrain.SampleHeight(pos);
         transform.position = pos;
     }
 
@@ -77,6 +77,7 @@ public class Minion : MonoBehaviour
     {
         if (go.GetComponent<Terrain>() != null) return;
         if (go.GetComponent<Minion>() != null) return;
+        if (go.GetComponent<Water>() != null) return;
         target = go;
         state = State.walking;
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Water : MonoBehaviour
 {
 
-    const float minLevel = 5.0f;
-    const float maxLevel = 15.0f;
+    const float minLevel = 4.0f;
+    const float maxLevel = 8.0f;
     const float Period = 60.0f;
     float startTime;
     Vector3 center;
@@ -23,7 +23,12 @@ public class Water : MonoBehaviour
     {
         float elapsedTime = Time.time - startTime;
         float D = maxLevel - minLevel;
-        float level = Mathf.Sin(elapsedTime * Mathf.PI * 2 / Period) * .5f * D + minLevel * 2;
+        float omeg = elapsedTime * Mathf.PI * 2 / Period;
+        float level = (
+            Mathf.Sin(omeg) +
+            .2f * Mathf.Sin(omeg * 2) +
+            .1f * Mathf.Sin(omeg * 3)
+            ) * .5f * D + (minLevel + maxLevel) / 2;
         transform.position = new Vector3(center.x, level, center.z);
     }
 }
