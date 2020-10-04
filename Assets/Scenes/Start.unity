@@ -1412,8 +1412,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' But now the river is getting dry enough that you can summon a couple
-    of minions.'
+  m_Text: But now the river is getting dry enough that you can summon a couple of
+    minions.
 --- !u!222 &1623278509
 CanvasRenderer:
   m_ObjectHideFlags: 0
