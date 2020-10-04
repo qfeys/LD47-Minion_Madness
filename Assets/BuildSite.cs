@@ -11,6 +11,9 @@ public class BuildSite : MonoBehaviour
 
     [SerializeField]
     int workToComplete;
+    int workDone;
+
+    public bool HasDirt { get => false; }
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +32,14 @@ public class BuildSite : MonoBehaviour
 
     internal void MakeProgress()
     {
-        workToComplete--;
-        if (workToComplete <= 0)
+        workDone++;
+        if (workToComplete <= workDone)
         {
             GameObject go = Instantiate(prefabFinalBuilding, gameObject.transform.position, gameObject.transform.rotation);
             BuildingTracker.instance.NewBuilding(go);
             Destroy(gameObject);
         }
     }
+    public string GetProgressUpdate() => "" + workDone + "/" + workToComplete;
+    public string GetDirtUpdate() => "";
 }

@@ -66,7 +66,7 @@ public class MouseManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                GameObject go = hit.collider.gameObject;
+                GameObject go = hit.collider.transform.parent.gameObject;
                 Debug.Log("setting target as " + go);
                 selection.SetTarget(go);
             }
@@ -105,7 +105,7 @@ public class MouseManager : MonoBehaviour
                 case Building.toolshop: relevantPrefab = toolshopFoudationPrefab; break;
                 case Building.farm: relevantPrefab = farmFoundationPrefab; break;
             }
-            GameObject.Instantiate(relevantPrefab, activeBuiding.transform.position, activeBuiding.transform.rotation);
+            GameObject.Instantiate(relevantPrefab, activeBuiding.transform.position, Quaternion.identity);
             activeBuiding.SetActive(false);
             state = State.standard;
         }

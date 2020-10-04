@@ -40,4 +40,7 @@ public class Master : MonoBehaviour
         if (progress >= progressNeeded)
             Debug.Log("You Won!!!"); // Make victory screen here
     }
+
+    public string GetProgressUpdate() => "" + progress + "/" + progressNeeded;
+    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
 }

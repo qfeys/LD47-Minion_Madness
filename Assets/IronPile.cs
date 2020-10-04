@@ -40,4 +40,7 @@ public class IronPile : MonoBehaviour
             Destroy(gameObject);
         }    
     }
+
+    public string GetProgressUpdate() => "" + totalIron;
+    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
 }

@@ -34,6 +34,20 @@ public class CameraController : MonoBehaviour
 
         Vector3 pos = transform.position;
         pos += new Vector3(x, 0, y);
+
+        // Check bounds
+        if (pos.x < 15) pos.x = 15;
+        if (pos.x > 65) pos.x = 65;
+        if (pos.z < -2) pos.z = -2;
+        if (pos.z > 50) pos.z = 50;
+
         transform.position = pos;
+
+
+        // Zoom
+        Vector2 zoomReq = Input.mouseScrollDelta;
+        Camera.main.fieldOfView -= zoomReq.y * 2;
+        if (Camera.main.fieldOfView > 60) Camera.main.fieldOfView = 60;
+        if (Camera.main.fieldOfView < 20) Camera.main.fieldOfView = 20;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Farm : MonoBehaviour
 {
     const int amountOfWorkplaces = 6;
-    const float DistanceToWorkplaces = 4;
+    const float DistanceToWorkplaces = 6;
     int currentworkspot;
 
     int foodStock;
@@ -40,11 +40,17 @@ public class Farm : MonoBehaviour
         float x = transform.position.x;
         float y = transform.position.z;
         float angle = 360 / amountOfWorkplaces * currentworkspot * Mathf.Deg2Rad;
-        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * DistanceToWorkplaces + new Vector2(x, y);
+        currentworkspot++;
+        Vector2 workpos = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * DistanceToWorkplaces + new Vector2(x, y);
+        Debug.Log("Farm: pos: " + new Vector2(x, y) + " , workpos: " + workpos);
+        return workpos;
     }
 
     internal void FoodProduced()
     {
         foodStock++;
     }
+
+    public string GetProgressUpdate() => "" + foodStock;
+    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
 }

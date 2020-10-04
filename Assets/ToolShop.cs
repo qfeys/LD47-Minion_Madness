@@ -43,4 +43,7 @@ public class ToolShop : MonoBehaviour
         ironSupply--;
         return true;
     }
+
+    public string GetProgressUpdate() => "" + ironSupply;
+    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
 }

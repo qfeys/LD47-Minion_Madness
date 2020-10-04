@@ -187,7 +187,7 @@ public class Minion : MonoBehaviour
 
 
     Vector2 currentFarminPosition;
-    float timeOfFarmingOrder;
+    float timeOfFarmingOrder = -10;
     private void FarmState()
     {
         Farm farm = target.GetComponent<Farm>();
@@ -200,7 +200,7 @@ public class Minion : MonoBehaviour
 
         if (Vector2.Distance(ToFlat(transform.position), currentFarminPosition) > .5)
         {
-            Vector2 dir = (ToFlat(target.transform.position) - currentFarminPosition).normalized;
+            Vector2 dir = (currentFarminPosition - ToFlat(transform.position)).normalized;
             transform.position += ToFull(dir * speed * Time.deltaTime);
         }
         if (Vector2.Distance(ToFlat(transform.position), currentFarminPosition) > 2)
@@ -327,6 +327,7 @@ public class Minion : MonoBehaviour
     private void FindFood()
     {
         if (state == State.eat) return;
+        Assert.IsTrue(BuildingTracker.instance != null);
         GameObject farm = BuildingTracker.instance.FindClosestFarm(transform.position);
         if (farm == null) return;
         if (interruptedTarget == null)
