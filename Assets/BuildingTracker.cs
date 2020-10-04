@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,6 +22,13 @@ public class BuildingTracker : MonoBehaviour
     {
         toolshops.AddRange(GameObject.FindObjectsOfType<ToolShop>());
         farms.AddRange(GameObject.FindObjectsOfType<Farm>());
+    }
+
+    internal void NewBuilding(GameObject go)
+    {
+        if (go.GetComponent<ToolShop>() != null) toolshops.Add(go.GetComponent<ToolShop>());
+        else if (go.GetComponent<Farm>() != null) farms.Add(go.GetComponent<Farm>());
+        else throw new Exception("Invalid building");
     }
 
     public GameObject FindClosestToolshop(Vector3 pos)

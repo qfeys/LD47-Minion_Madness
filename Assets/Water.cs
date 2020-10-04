@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
+    public static float Level { get => level; }
 
     const float minLevel = 4.0f;
     const float maxLevel = 8.0f;
     const float Period = 60.0f;
     float startTime;
+    static float level;
     Vector3 center;
 
     // Start is called before the first frame update
@@ -24,10 +26,11 @@ public class Water : MonoBehaviour
         float elapsedTime = Time.time - startTime;
         float D = maxLevel - minLevel;
         float omeg = elapsedTime * Mathf.PI * 2 / Period;
-        float level = (
+        level = (
             Mathf.Sin(omeg) +
             .2f * Mathf.Sin(omeg * 2) +
-            .1f * Mathf.Sin(omeg * 3)
+            .3f * Mathf.Sin(omeg * 3) +
+            .1f * Mathf.Sin(omeg * 4)
             ) * .5f * D + (minLevel + maxLevel) / 2;
         transform.position = new Vector3(center.x, level, center.z);
     }

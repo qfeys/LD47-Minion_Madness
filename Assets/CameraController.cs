@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     float keyspeed = .5f;
     float mousespeed = .1f;
 
+    float BorderSize = .08f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,13 @@ public class CameraController : MonoBehaviour
         float y = Input.GetAxis("Vertical") * keyspeed;
 
         Vector2 mousepos = Input.mousePosition;
-
-        if (mousepos.x < screensize.x * .1f) x -= mousespeed;
-        if (mousepos.x > screensize.x * .9f) x += mousespeed;
-        if (mousepos.y < screensize.y * .1f) y -= mousespeed;
-        if (mousepos.y > screensize.y * .9f) y += mousespeed;
+        if (MouseInputUIBlocker.BlockedByUI == false)
+        {
+            if (mousepos.x < screensize.x * BorderSize) x -= mousespeed;
+            if (mousepos.x > screensize.x * (1 - BorderSize)) x += mousespeed;
+            if (mousepos.y < screensize.y * BorderSize) y -= mousespeed;
+            if (mousepos.y > screensize.y * (1 - BorderSize)) y += mousespeed;
+        }
 
         Vector3 pos = transform.position;
         pos += new Vector3(x, 0, y);

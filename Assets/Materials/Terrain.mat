@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
-  m_Shader: {fileID: -6465566751694194690, guid: a7e8a3e13291d23498a839e9e1993e2d, type: 3}
+  m_Name: Terrain
+  m_Shader: {fileID: -6465566751694194690, guid: 27d48a60b2f3f614283c4f3dca057884, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,10 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Floats:
-    - _Depth: 1
-    - _Strength: 0.23
-    m_Colors:
-    - _DeepColor: {r: 0.11372549, g: 0.24705882, b: 0.4392157, a: 0.8509804}
-    - _ShallowWater: {r: 0.70980394, g: 0.6745098, b: 0.7647059, a: 0.92941177}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []
