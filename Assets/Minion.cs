@@ -31,6 +31,8 @@ public class Minion : MonoBehaviour
 
     internal string GetToolText() => hasTool ? "Tool: " + (tool * 100).ToString("00") + "%" : "No tool";
 
+    internal bool IsIdle() => state == State.idle;
+
     float WorkSpeed { get => .5f * (hunger <= 0 ? .5f : 1) * (tool <= 0 ? 1 : 4) * underwaterModifyer; }
     float currentJobProgress;
 
@@ -176,6 +178,20 @@ public class Minion : MonoBehaviour
         Assert.IsTrue(ironPile != null, "This is the assert of the iron pile");
         if (hasIronBar) // in this case, bring the bar to a toolshop
         {
+            if(activeToolshop == null)
+            {
+                GameObject toolshop = null;
+                if (FindNearestToolshop(out toolshop))
+                {
+                    activeToolshop = toolshop;
+                }
+                else
+                {
+                    state = State.idle;
+                    return;
+                }
+            }
+
             if (Vector2.Distance(ToFlat(transform.position), ToFlat(activeToolshop.transform.position)) > 2)
             {
                 Vector2 dir = (ToFlat(activeToolshop.transform.position) - ToFlat(transform.position)).normalized;
@@ -402,10 +418,10 @@ public class Minion : MonoBehaviour
     Vector2 ToFlat(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
     Vector3 ToFull(Vector2 vector2) => new Vector3(vector2.x, 0, vector2.y);
 
-    const float TimeToMineIron = 6f;
-    const float TimeToMakeTool = 10f;
-    const float TimeToFixTool = 4f;
+    const float TimeToMineIron = 4f;
+    const float TimeToMakeTool = 6f;
+    const float TimeToFixTool = 3f;
     const float TimeToFarm = 4f;
     const float TimeToEat = 2f;
-    const float HungerRate = 28f; // seconds until minion becomes hungry
+    const float HungerRate = 34f; // seconds until minion becomes hungry
 }

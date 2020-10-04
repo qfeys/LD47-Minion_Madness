@@ -10,6 +10,7 @@ public class MinionCanvas : MonoBehaviour
     public Text tool;
     public Text ironBar;
     public Text drowning;
+    public Text idle;
 
     Minion minion;
 
@@ -27,6 +28,7 @@ public class MinionCanvas : MonoBehaviour
         ironBar.gameObject.SetActive(minion.HasIronBar);
         drowning.gameObject.SetActive(minion.UnderwaterStatus != 0);
         drowning.text = minion.UnderwaterStatus == 1 ? "Wet Feet!" : "Adrift!";
+        idle.gameObject.SetActive(minion.IsIdle());
 
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
