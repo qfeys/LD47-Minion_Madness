@@ -21,7 +21,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _MaxWater: 8
-    - _MinWater: 4
+    - _MinWater: 2
     - _Period: 60
     m_Colors:
     - _Dirt: {r: 0.3773585, g: 0.2265226, b: 0.008899963, a: 1}

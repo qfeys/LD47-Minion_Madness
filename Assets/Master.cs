@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Master : MonoBehaviour
 {
 
     int progress;
     const int progressNeeded = 500;
+
+    [SerializeField]
+    GameObject MinionPrefab;
+    const float minionCooldown = 5;
+    float timeSinceLastMinion= 10000;
+    [SerializeField]
+    Button minionButton;
+    [SerializeField]
+    Slider minionSlider;
 
     float dirt = 4;
     const float maxDirt = 4;
@@ -31,6 +41,9 @@ public class Master : MonoBehaviour
             dirt += Time.deltaTime;
             if (dirt > maxDirt) dirt = maxDirt;
         }
+        timeSinceLastMinion += Time.deltaTime;
+        minionSlider.value = timeSinceLastMinion / minionCooldown;
+        minionButton.interactable = Water.Level < transform.position.y;
     }
 
     public void MakeProgress()
@@ -38,9 +51,22 @@ public class Master : MonoBehaviour
         progress++;
         Debug.Log("Progress in digging out Master is now " + progress);
         if (progress >= progressNeeded)
+        {
             Debug.Log("You Won!!!"); // Make victory screen here
+            UnityEngine.SceneManagement.SceneManager.LoadScene("end");
+        }
     }
 
     public string GetProgressUpdate() => "" + progress + "/" + progressNeeded;
-    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
+    public string GetDirtUpdate() => "" + dirt.ToString("0.#") + "/" + maxDirt;
+
+
+    public void SpawnMinion()
+    {
+        if (timeSinceLastMinion < minionCooldown)
+            return;
+        GameObject go = Instantiate(MinionPrefab);
+        go.transform.position = transform.position + new Vector3(-1, 0, 1);
+        timeSinceLastMinion = 0;
+    }
 }

@@ -45,5 +45,5 @@ public class ToolShop : MonoBehaviour
     }
 
     public string GetProgressUpdate() => "" + ironSupply;
-    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
+    public string GetDirtUpdate() => "" + dirt.ToString("0.#") + "/" + maxDirt;
 }

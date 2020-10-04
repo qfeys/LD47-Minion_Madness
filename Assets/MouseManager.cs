@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -16,7 +18,12 @@ public class MouseManager : MonoBehaviour
     GameObject toolshopFoudationPrefab;
     [SerializeField]
     GameObject farmFoundationPrefab;
-    
+
+    [SerializeField]
+    GameObject dummy;
+    [SerializeField]
+    GameObject selectionRing;
+
 
     enum State { standard, building}
     State state;
@@ -41,6 +48,17 @@ public class MouseManager : MonoBehaviour
                 BuildingUpdate();
                 break;
         }
+
+        if (state == State.standard && selection != null)
+        {
+            selectionRing.SetActive(true);
+            selectionRing.transform.position = selection.transform.position;
+        }
+        else
+            selectionRing.SetActive(false);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            selection = null;
     }
 
     private void StandardUpdate()
@@ -51,8 +69,7 @@ public class MouseManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                GameObject go = hit.collider.gameObject;
-                Minion minion = go.GetComponent<Minion>();
+                Minion minion = hit.collider.gameObject.GetComponentInParent<Minion>();
                 if (minion != null)
                 {
                     selection = minion;
@@ -64,11 +81,19 @@ public class MouseManager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (selection != null && Physics.Raycast(ray, out hit))
             {
-                GameObject go = hit.collider.transform.parent.gameObject;
-                Debug.Log("setting target as " + go);
-                selection.SetTarget(go);
+                if (hit.collider.GetComponent<Terrain>())
+                {
+                    GameObject go = Instantiate(dummy, hit.point, Quaternion.identity);
+                    selection.SetTarget(go);
+                }
+                else
+                {
+                    GameObject go = hit.collider.transform.parent.gameObject;
+                    Debug.Log("setting target as " + go);
+                    selection.SetTarget(go);
+                }
             }
         }
     }

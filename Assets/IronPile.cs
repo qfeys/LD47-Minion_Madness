@@ -42,5 +42,5 @@ public class IronPile : MonoBehaviour
     }
 
     public string GetProgressUpdate() => "" + totalIron;
-    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
+    public string GetDirtUpdate() => "" + dirt.ToString("0.#") + "/" + maxDirt;
 }

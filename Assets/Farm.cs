@@ -52,5 +52,5 @@ public class Farm : MonoBehaviour
     }
 
     public string GetProgressUpdate() => "" + foodStock;
-    public string GetDirtUpdate() => "" + dirt + "/" + maxDirt;
+    public string GetDirtUpdate() => "" + dirt.ToString("0.#") + "/" + maxDirt;
 }

@@ -6,8 +6,8 @@ public class Water : MonoBehaviour
 {
     public static float Level { get => level; }
 
-    const float minLevel = 4.0f;
-    const float maxLevel = 8.0f;
+    const float minLevel = 1.5f;
+    const float maxLevel = 8.5f;
     const float Period = 60.0f;
     float startTime;
     static float level;
@@ -26,12 +26,14 @@ public class Water : MonoBehaviour
         float elapsedTime = Time.time - startTime;
         float D = maxLevel - minLevel;
         float omeg = elapsedTime * Mathf.PI * 2 / Period;
+        // On desmos:
+        // \left(\frac{\left(\sin\left(o\right)+1\right)^{2}}{2}-.7+.4\cdot\sin\left(o\cdot2\right)+.3\cdot\sin\left(o\cdot3\right)+.2\cdot\sin\left(o\cdot4\right)\right)\cdot.35\cdot D+\frac{\left(l+L\right)}{2}
         level = (
-            Mathf.Sin(omeg) +
-            .2f * Mathf.Sin(omeg * 2) +
+            Mathf.Pow(Mathf.Sin(omeg) + 1, 2) / 2 - .7f +
+            .4f * Mathf.Sin(omeg * 2) +
             .3f * Mathf.Sin(omeg * 3) +
-            .1f * Mathf.Sin(omeg * 4)
-            ) * .5f * D + (minLevel + maxLevel) / 2;
+            .2f * Mathf.Sin(omeg * 4)
+            ) * .35f * D + (minLevel + maxLevel) / 2;
         transform.position = new Vector3(center.x, level, center.z);
     }
 }

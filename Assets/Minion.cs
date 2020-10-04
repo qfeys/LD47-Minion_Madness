@@ -16,13 +16,22 @@ public class Minion : MonoBehaviour
     GameObject target;
     GameObject interruptedTarget;
 
+    int underwaterStatus = 0; // 0, 1 or 2
+    float underwaterModifyer { get => (underwaterStatus == 0 ? 1 : underwaterStatus == 1 ? 0.5f : 0); }
+    public int UnderwaterStatus { get => underwaterStatus; }
+
     float hunger = 1;
     float tool = 0;
     bool hasTool = false;
 
     bool hasIronBar = false;
+    public bool HasIronBar { get => hasIronBar; }
 
-    float WorkSpeed { get => .5f * (hunger <= 0 ? .5f : 1) * (tool <= 0 ? 1 : 4); }
+    internal string GetHungerText() => "Hunger: " + (hunger > 0 ? (hunger * 100).ToString("00") + "%" : "Is hungry");
+
+    internal string GetToolText() => hasTool ? "Tool: " + (tool * 100).ToString("00") + "%" : "No tool";
+
+    float WorkSpeed { get => .5f * (hunger <= 0 ? .5f : 1) * (tool <= 0 ? 1 : 4) * underwaterModifyer; }
     float currentJobProgress;
 
     enum State { idle, walking, dig_master, dig_iron, farm, build, eat, make_tool}
@@ -71,9 +80,28 @@ public class Minion : MonoBehaviour
         hunger -= Time.deltaTime / HungerRate;
         if (hunger <= 0) FindFood();
 
+        // Is underwater
+        Vector3 pos = transform.position;
+        float groundheight = terrain.SampleHeight(pos);
+        if (groundheight < Water.Level)
+            if (groundheight + 1 < Water.Level)
+                underwaterStatus = 2;
+            else
+                underwaterStatus = 1;
+        else
+            underwaterStatus = 0;
+
+        // Drift
+        if (underwaterStatus == 2)
+        {
+            pos.z -= Time.deltaTime;
+            transform.position = pos;
+        }
+        if (pos.z < 1)
+            DestroyFully(gameObject);
+
         // Set height
-        var pos = transform.position;
-        pos.y = terrain.SampleHeight(pos);
+        pos.y = underwaterStatus == 2 ? Water.Level - 1 : groundheight;
         transform.position = pos;
     }
 
@@ -94,10 +122,15 @@ public class Minion : MonoBehaviour
 
     private void WalkingState()
     {
+        if(target == null)
+        {
+            state = State.idle;
+            return;
+        }
         if (Vector2.Distance(ToFlat(transform.position), ToFlat(target.transform.position)) > 2)
         {
             Vector2 dir = (ToFlat(target.transform.position) - ToFlat(transform.position)).normalized;
-            transform.position += ToFull(dir * speed * Time.deltaTime);
+            MoveToDir(dir);
         }
         else
         {
@@ -107,6 +140,7 @@ public class Minion : MonoBehaviour
             else if (target.GetComponent<BuildSite>() != null) state = State.build;
             else if (target.GetComponent<Food>() != null) state = State.eat;
             else if (target.GetComponent<ToolShop>() != null) state = State.make_tool;
+            else if (target.GetComponent<Dummy>() != null) state = State.idle;
             else throw new Exception("invalid target: " + target);
         }
     }
@@ -145,7 +179,7 @@ public class Minion : MonoBehaviour
             if (Vector2.Distance(ToFlat(transform.position), ToFlat(activeToolshop.transform.position)) > 2)
             {
                 Vector2 dir = (ToFlat(activeToolshop.transform.position) - ToFlat(transform.position)).normalized;
-                transform.position += ToFull(dir * speed * Time.deltaTime);
+                MoveToDir(dir);
             }
             else
             {
@@ -201,7 +235,7 @@ public class Minion : MonoBehaviour
         if (Vector2.Distance(ToFlat(transform.position), currentFarminPosition) > .5)
         {
             Vector2 dir = (currentFarminPosition - ToFlat(transform.position)).normalized;
-            transform.position += ToFull(dir * speed * Time.deltaTime);
+            MoveToDir(dir);
         }
         if (Vector2.Distance(ToFlat(transform.position), currentFarminPosition) > 2)
         {
@@ -248,7 +282,7 @@ public class Minion : MonoBehaviour
         if (Vector2.Distance(ToFlat(transform.position), ToFlat(target.transform.position)) > 2)
         {
             Vector2 dir = (ToFlat(target.transform.position) - ToFlat(transform.position)).normalized;
-            transform.position += ToFull(dir * speed * Time.deltaTime);
+            MoveToDir(dir);
             currentJobProgress = 0;
         }
         else
@@ -334,6 +368,35 @@ public class Minion : MonoBehaviour
             interruptedTarget = target;
         target = farm;
         state = State.eat;
+    }
+
+    private void MoveToDir(Vector2 dir)
+    {
+        transform.position += ToFull(dir * speed * Time.deltaTime * underwaterModifyer);
+        transform.rotation = Quaternion.Euler(0, -Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90, 0);
+    }
+
+    private void PushToDir(Vector2 dir)
+    {
+        transform.position += ToFull(dir);
+    }
+
+    static void DestroyFully(GameObject go)
+    {
+        for (int i = 0; i < go.transform.childCount; i++)
+        {
+            DestroyFully(go.transform.GetChild(i).gameObject);
+        }
+        Destroy(go);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Terrain>() != null)
+            return;
+        var dir = transform.position - collision.transform.position;
+        PushToDir(ToFlat(dir).normalized * .5f);
+        Debug.Log("collision. Moving to: " + dir + " / " + ToFlat(dir).normalized);
     }
 
     Vector2 ToFlat(Vector3 vector3) => new Vector2(vector3.x, vector3.z);
