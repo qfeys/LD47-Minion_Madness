@@ -14,6 +14,8 @@ public class Farm : MonoBehaviour
     float dirt = 0;
     const float maxDirt = 4;
     public bool HasDirt { get => dirt > 0; }
+    public bool HasFood { get => foodStock > 0; }
+
     public void RemoveDirt(float work) { dirt -= work; }
 
     // Start is called before the first frame update
@@ -53,4 +55,11 @@ public class Farm : MonoBehaviour
 
     public string GetProgressUpdate() => "" + foodStock;
     public string GetDirtUpdate() => "" + dirt.ToString("0.#") + "/" + maxDirt;
+
+    internal bool FoodTaken()
+    {
+        if (foodStock <= 0) return false;
+        foodStock--;
+        return true;
+    }
 }

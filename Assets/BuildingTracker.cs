@@ -53,6 +53,7 @@ public class BuildingTracker : MonoBehaviour
         float closestDist = float.MaxValue;
         foreach (var farm in farms)
         {
+            if (farm.HasFood == false) continue;
             float dist = Vector3.Distance(pos, farm.transform.position);
             if (dist < closestDist)
             {

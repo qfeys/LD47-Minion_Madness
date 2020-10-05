@@ -27,7 +27,7 @@ public class Minion : MonoBehaviour
     bool hasIronBar = false;
     public bool HasIronBar { get => hasIronBar; }
 
-    internal string GetHungerText() => "Hunger: " + (hunger > 0 ? (hunger * 100).ToString("00") + "%" : "Is hungry");
+    internal string GetHungerText() =>  (hunger > 0 ? "Hunger: " + (hunger * 100).ToString("00") + "%" : "Is hungry");
 
     internal string GetToolText() => hasTool ? "Tool: " + (tool * 100).ToString("00") + "%" : "No tool";
 
@@ -253,7 +253,7 @@ public class Minion : MonoBehaviour
             Vector2 dir = (currentFarminPosition - ToFlat(transform.position)).normalized;
             MoveToDir(dir);
         }
-        if (Vector2.Distance(ToFlat(transform.position), currentFarminPosition) > 2)
+        if (Vector2.Distance(ToFlat(transform.position), currentFarminPosition) < 2)
         {
             if (farm.HasDirt)
             {
@@ -295,7 +295,7 @@ public class Minion : MonoBehaviour
 
     private void EatState()
     {
-        if (Vector2.Distance(ToFlat(transform.position), ToFlat(target.transform.position)) > 2)
+        if (Vector2.Distance(ToFlat(transform.position), ToFlat(target.transform.position)) > 2.5f)
         {
             Vector2 dir = (ToFlat(target.transform.position) - ToFlat(transform.position)).normalized;
             MoveToDir(dir);
@@ -304,7 +304,7 @@ public class Minion : MonoBehaviour
         else
         {
             currentJobProgress += Time.deltaTime;
-            if(currentJobProgress > TimeToEat)
+            if (currentJobProgress > TimeToEat && target.GetComponent<Farm>().FoodTaken())
             {
                 hunger = 1;
                 target = interruptedTarget;
