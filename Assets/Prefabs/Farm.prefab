@@ -45,6 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ae7494b4e17194c9b7f48e2bfb5d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4054967533673561172
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8855170664037200718}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8, y: 1.8, z: 2.847922}
+  m_Center: {x: 0, y: 0, z: -1}
 --- !u!1001 &6325680251526744891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -202,8 +215,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Farm
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3451118302482216456, guid: fb6475a0689255b45aecae948893b8f9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3451118302482216456, guid: fb6475a0689255b45aecae948893b8f9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fb6475a0689255b45aecae948893b8f9, type: 3}
+--- !u!1 &8855170664037200718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fb6475a0689255b45aecae948893b8f9, type: 3}
+  m_PrefabInstance: {fileID: 8512519201203195423}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8189851317885594100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fb6475a0689255b45aecae948893b8f9, type: 3}

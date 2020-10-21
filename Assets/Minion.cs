@@ -30,6 +30,21 @@ public class Minion : MonoBehaviour
     internal string GetHungerText() =>  (hunger > 0 ? "Hunger: " + (hunger * 100).ToString("00") + "%" : "Is hungry");
 
     internal string GetToolText() => hasTool ? "Tool: " + (tool * 100).ToString("00") + "%" : "No tool";
+    internal string GetStateText()
+    {
+        switch (state)
+        {
+        case State.idle: return "";
+        case State.walking: return "Walking";
+        case State.dig_master: return "Digging";
+        case State.dig_iron: return "Mining";
+        case State.farm: return "Farming";
+        case State.build: return "Building";
+        case State.eat: return "Eating";
+        case State.make_tool: return "Making a Tool";
+        default: throw new NotImplementedException();
+        }
+    }
 
     internal bool IsIdle() => state == State.idle;
 

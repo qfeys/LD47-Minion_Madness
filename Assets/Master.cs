@@ -8,7 +8,7 @@ public class Master : MonoBehaviour
 {
 
     int progress;
-    const int progressNeeded = 200;
+    const int progressNeeded = 150;
 
     [SerializeField]
     GameObject MinionPrefab;

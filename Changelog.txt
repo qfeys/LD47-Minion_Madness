@@ -2,3 +2,8 @@ V 1.2:
 -Changed flooding period from 60 to 70 seconds
 -Changed font of buttons
 -Added sign when flooding is imminent
+
+-changed text 'Is Idle!' to 'idle'
+-Added new label above minion displaying their current action
+-Changed the collision meches of the farm and toolshop to be smaller to prevent glitchy behaviour
+-Changed progress needed for digging out master from 200 to 150
