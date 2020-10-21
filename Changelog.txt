@@ -1,0 +1,4 @@
+V 1.2:
+-Changed flooding period from 60 to 70 seconds
+-Changed font of buttons
+-Added sign when flooding is imminent

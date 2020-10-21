@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Water : MonoBehaviour
 {
@@ -8,15 +9,18 @@ public class Water : MonoBehaviour
 
     const float minLevel = 1.5f;
     const float maxLevel = 8.5f;
-    const float Period = 60.0f;
+    const float Period = 70.0f;
     float startTime;
     static float level;
     Vector3 center;
 
+    [SerializeField]
+    GameObject floodingSign;
+
     // Start is called before the first frame update
     void Start()
     {
-        startTime = Time.time + Period / 4;
+        startTime = Time.time - 3 * Period / 4;
         center = transform.position;
     }
 
@@ -35,5 +39,11 @@ public class Water : MonoBehaviour
             .2f * Mathf.Sin(omeg * 4)
             ) * .35f * D + (minLevel + maxLevel) / 2;
         transform.position = new Vector3(center.x, level, center.z);
+
+        // Flooding label
+        bool floodingimminant = omeg % (2 * Mathf.PI) > Mathf.PI * 10.5f / 6;
+        bool flickerOn = Time.time % 1 > .5f;
+        floodingSign.SetActive(floodingimminant);
+        floodingSign.GetComponent<Text>().color = flickerOn ? new Color(.7f, 0, 0) : new Color(1, .15f, .15f);
     }
 }
