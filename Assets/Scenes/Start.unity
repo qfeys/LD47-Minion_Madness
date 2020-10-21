@@ -236,7 +236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 180, y: -472}
+  m_AnchoredPosition: {x: 382, y: -493}
   m_SizeDelta: {x: 475.9663, y: 202.09436}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &606821903
@@ -624,8 +624,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 567.7, y: -363}
-  m_SizeDelta: {x: 223.39465, y: 109}
+  m_AnchoredPosition: {x: -174, y: -413.09}
+  m_SizeDelta: {x: 181.7988, y: 109}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1002944197
 MonoBehaviour:
@@ -649,7 +649,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: c194db2d7a1e5d8418d6f8b4ce2609ac, type: 3}
-    m_FontSize: 36
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -769,8 +769,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 212, y: -748}
-  m_SizeDelta: {x: 475.9663, y: 202.09436}
+  m_AnchoredPosition: {x: 213.7, y: -748}
+  m_SizeDelta: {x: 492.8294, y: 202.09436}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1187286797
 MonoBehaviour:
@@ -806,7 +806,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: For tools, they should first mine iron, which they can then make into tools
-    in teh toolshop. Beware that they have to repair their tools from time to time.
+    in the toolshop. A tool changes their workspeed a lot, so make sure to make them
+    by assigning a minion to the toolshop.
 --- !u!222 &1187286798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -849,8 +850,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 644, y: -452}
-  m_SizeDelta: {x: 278.78333, y: 113.47272}
+  m_AnchoredPosition: {x: 9.6364, y: -442}
+  m_SizeDelta: {x: 185.47388, y: 113.47272}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1409497750
 MonoBehaviour:
@@ -874,7 +875,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: c194db2d7a1e5d8418d6f8b4ce2609ac, type: 3}
-    m_FontSize: 36
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -1234,7 +1235,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Also know that when things flood, you first have to dig away the dirt before
-    you can use it.
+    you can work there.
 --- !u!222 &1519731985
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1376,7 +1377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -49, y: -339}
+  m_AnchoredPosition: {x: -49.003, y: -315}
   m_SizeDelta: {x: 475.9663, y: 202.09436}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1623278508
@@ -1692,7 +1693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3207547, g: 0.2950338, b: 0.3160467, a: 1}
+  m_Color: {r: 0.6408598, g: 0.6203275, b: 0.6415094, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

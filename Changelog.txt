@@ -7,3 +7,5 @@ V 1.2:
 -Added new label above minion displaying their current action
 -Changed the collision meches of the farm and toolshop to be smaller to prevent glitchy behaviour
 -Changed progress needed for digging out master from 200 to 150
+
+-Changed the text on the start and end screen for increased clarification
